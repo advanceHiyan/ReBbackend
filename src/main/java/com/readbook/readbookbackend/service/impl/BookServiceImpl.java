@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -54,8 +55,15 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookWithCate> bookfilter(BigInteger authorId, List<String> cates, Integer heatRequire) {
-        return bookMapper.getBookByAuthorAndNeedCatesAndHeat(authorId, cates, heatRequire);
+    public List<BookWithCate> bookfilter(BigInteger authorId, List<BigInteger> cateSelectBookIds, Integer heatRequire) {
+        List<OneBook> bookList = bookMapper.getBookByAuthorAndNeedCatesAndHeat(authorId, cateSelectBookIds, heatRequire);
+        List<BookWithCate> retList= new ArrayList<>();
+        for(OneBook oneBook : bookList) {
+            List<Category> categories = bookMapper.findCategoriesByBookId(oneBook.getId());
+            BookWithCate bookWithCate = new BookWithCate(oneBook, categories);
+            retList.add(bookWithCate);
+        }
+        return retList;
     }
 
     @Override

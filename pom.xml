@@ -50,11 +50,13 @@
             <scope>runtime</scope> <!-- 测试和打包时依赖，主程序不依赖 -->
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <version>1.18.34</version>
         </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -86,7 +88,6 @@
             <artifactId>mybatis-spring-boot-starter-test</artifactId>
             <version>3.0.3</version>
         </dependency>
-
 
     </dependencies>
 

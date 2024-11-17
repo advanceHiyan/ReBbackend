@@ -57,13 +57,25 @@ public class BookController {
     }
 
     @PostMapping("/usercenter/bookfilter")
-    public Result bookfilter(BigInteger authorId, List<String> cates, Integer heatRequire) {
-        List<BookWithCate> books = bookService.bookfilter(authorId, cates, heatRequire);
-        if(books == null || books.size() == 0) {
+    public Result bookfilter(BigInteger authorid, String[] categories, Integer heatRequire) {
+        ArrayList<BigInteger> cateSelectBookIds;
+        if(categories != null && categories.length != 0) {
+            ArrayList<String> cates = new ArrayList<>(Arrays.asList(categories));
+            System.out.println(cates);
+            cateSelectBookIds = categoryService.getCateSelectBookIds(cates);
+            System.out.println(cateSelectBookIds);
+        } else {
+            cateSelectBookIds = new ArrayList<>();
+        }
+        List<BookWithCate> books = bookService.bookfilter(authorid, cateSelectBookIds, heatRequire);
+        if(books == null || books.isEmpty()) {
             return Result.error("not found books that match the filter","446");
         }
         int total_count = books.size();
-        int limit = total_count < 10 ? total_count : 10;
+        int limit = 10;
+        if (total_count < 10) {
+            limit = total_count;
+        }
         if(total_count > 100) {
             limit = (total_count / 10) / 10 * 10;
         }
@@ -74,6 +86,7 @@ public class BookController {
         pageBooks.setBooks(books);
         pageBooks.setLimit(limit);
         pageBooks.setTotal_count(total_count);
+        System.out.println(limit+ " " + total_count);
         return Result.success("success",pageBooks);
     }
 }

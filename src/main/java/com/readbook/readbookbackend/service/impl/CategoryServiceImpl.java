@@ -60,4 +60,18 @@ public class CategoryServiceImpl implements CategoryService {
         }
         return Result.success("Get all categories success", categories);
     }
+
+    @Override
+    public ArrayList<BigInteger> getCateIds(ArrayList<String> cates) {
+        ArrayList<BigInteger> cateIds = new ArrayList<>();
+        for (String cate : cates) {
+            cateIds.add(categoryMapper.getCategoryIdByName(cate));
+        }
+        return cateIds;
+    }
+
+    @Override
+    public ArrayList<BigInteger> getCateSelectBookIds(ArrayList<String> cates) {
+        return categoryMapper.getCateSelectBookIds(cates);
+    }
 }

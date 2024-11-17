@@ -17,8 +17,8 @@ public interface BookMapper {
 
     OneBook getBookById(BigInteger id); //必须设置类id和数据库主键映射
 
-    List<BookWithCate> getBookByAuthorAndNeedCatesAndHeat(@Param("authorId") BigInteger authorId,
-                                                          @Param("needCates") List<String> needCates,
+    List<OneBook> getBookByAuthorAndNeedCatesAndHeat(@Param("authorId") BigInteger authorId,
+                                                          @Param("cateSelectedIds") List<BigInteger> cateSelectedIds,
                                                           @Param("heatRequire") Integer heatRequire);
 
     void insertNewBook(OneBook oneBook);
@@ -28,4 +28,6 @@ public interface BookMapper {
     int updateBook(OneBook oneBook);
 
     List<Category> findCategoriesByBookId(BigInteger bookId);//必须设置类id和数据库主键映射
+
+    List<OneBook> getAllBooks(); //必须设置类id和数据库主键映射
 }

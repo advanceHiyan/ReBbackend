@@ -5,6 +5,7 @@ import com.readbook.readbookbackend.pojo.Category;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -28,4 +29,6 @@ public interface CategoryMapper {
     BigInteger getCategoryIdByName(String cateName);
 
     void addCountByName(String cateName);
+
+    ArrayList<BigInteger> getCateSelectBookIds(ArrayList<String> cateNames);
 }

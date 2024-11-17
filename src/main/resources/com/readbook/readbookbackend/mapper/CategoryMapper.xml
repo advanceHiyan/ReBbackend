@@ -64,4 +64,17 @@
         FROM category
         WHERE category.cate_name = #{cateName}
     </select>
+
+    <select id="getCateSelectBookIds" resultType="java.math.BigInteger">
+        SELECT book_category_relationship.book_id
+        FROM book_category_relationship
+        WHERE book_category_relationship.cate_id  in (
+            SELECT category.category_id
+            FROM category
+            WHERE category.cate_name in
+        <foreach collection="cateNames" item="cateName" open="(" close=")" separator=",">
+            #{cateName}
+        </foreach>
+        )
+    </select>
 </mapper>
