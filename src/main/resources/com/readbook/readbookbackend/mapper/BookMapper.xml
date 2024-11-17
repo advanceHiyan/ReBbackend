@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.readbook.readbookbackend.mapper.BookMapper">
+
+    <!-- 结果映射：将查询结果映射到BookWithCate对象 -->
+    <resultMap id="BookWithCateResultMap" type="com.readbook.readbookbackend.utils.model.BookWithCate">
+        <!-- 映射OneBook的属性 -->
+        <id property="id" column="book_id" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="heat" column="heat" />
+        <result property="createdTime" column="created_time" />
+        <result property="updatedTime" column="updated_time" />
+        <result property="creatorId" column="creator_id" />
+        <result property="author" column="author" />
+        <result property="value" column="value" />
+
+        <!-- 映射List<Category>属性 -->
+        <collection property="cate" ofType="com.readbook.readbookbackend.pojo.Category">
+            <id property="id" column="category_id" />
+            <result property="cateName" column="cate_name" />
+            <result property="referenceNumber" column="reference_number" />
+        </collection>
+    </resultMap>
+    <resultMap id="OneBookResultMap" type="com.readbook.readbookbackend.pojo.OneBook">
+        <id property="id" column="book_id" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="heat" column="heat" />
+        <result property="createdTime" column="created_time" />
+        <result property="updatedTime" column="updated_time" />
+        <result property="creatorId" column="creator_id" />
+        <result property="author" column="author" />
+        <result property="value" column="value" />
+    </resultMap>
+
+    <!-- 插入语句：插入新图书 -->
+    <!-- 插入语句：插入新图书 -->
+    <insert id="insertNewBook">
+        INSERT INTO book (title, content, heat, created_time, updated_time, creator_id, value, author)
+        VALUES (#{title}, #{content}, #{heat}, #{createdTime}, #{updatedTime}, #{creatorId}, #{value}, #{author})
+        <!-- 使用selectKey获取插入后生成的主键值并设置给book.id -->
+        <selectKey keyProperty="id" resultType="java.math.BigInteger" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <update id="updateBook">
+        UPDATE book SET title = #{title}, content = #{content}, heat = #{heat},
+                        updated_time = #{updatedTime}, value = #{value},
+                        author = #{author} WHERE book_id = #{id}
+    </update>
+
+    <!-- 查询语句：根据作者、需要的类别和热度条件查找图书以及每个图书的所有类别 -->
+    <select id="getBookByAuthorAndNeedCatesAndHeat" resultMap="BookWithCateResultMap">
+        SELECT
+        b.*,
+        c.category_id,
+        c.cate_name,
+        c.reference_number
+        FROM
+        book b
+        LEFT JOIN book_category_relationship bcr ON b.book_id = bcr.book_id
+        LEFT JOIN category c ON bcr.cate_id = c.category_id
+        WHERE
+        <!-- 根据authorId参数判断是否添加作者筛选条件 -->
+        <if test="authorId!= null">
+            b.creator_id = #{authorId}
+        </if>
+        <!-- 根据needCates参数判断是否添加类别筛选条件 -->
+        <if test="needCates!= null and needCates.size() > 0">
+            AND EXISTS (
+            SELECT 1
+            FROM book_category_relationship bcr_inner
+            WHERE b.book_id = bcr_inner.book_id
+            AND bcr_inner.cate_id IN (
+            <foreach item="cate" collection="needCates" open="(" close=")" separator="," >
+                #{cate.categoryId}
+            </foreach>
+            )
+            )
+        </if>
+        <!-- 根据heatRequire参数判断是否添加热度筛选条件 -->
+        <if test="heatRequire!= null">
+            AND b.heat >= #{heatRequire}
+        </if>
+        <if test="true">
+            AND true
+        </if>
+    </select>
+
+    <!-- 查询语句：根据bookId查询图书 -->
+    <select id="getBookById" resultMap="OneBookResultMap">
+        SELECT * FROM book WHERE book_id = #{id}
+    </select>
+
+    <select id="getBookByTitle" resultMap="OneBookResultMap">
+        SELECT * FROM book WHERE title = #{title}
+    </select>
+
+    <select id="findCategoriesByBookId" resultMap="categoryResultMap">
+        SELECT c.category_id as id, c.cate_name as cateName, c.reference_number as referenceNumber
+        FROM category c
+                 JOIN book_category_relationship bcr ON c.category_id = bcr.cate_id
+        WHERE bcr.book_id = #{bookId}
+    </select>
+
+    <resultMap id="categoryResultMap" type="com.readbook.readbookbackend.pojo.Category">
+        <id property="id" column="id"/>
+        <result property="cateName" column="cateName"/>
+        <result property="referenceNumber" column="referenceNumber"/>
+    </resultMap>
+</mapper>

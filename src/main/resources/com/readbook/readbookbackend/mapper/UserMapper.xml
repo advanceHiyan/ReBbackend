@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readbook.readbookbackend.mapper.UserMapper">
+    <!-- 结果映射：将查询结果映射到User对象 -->
+    <resultMap id="UserResultMap" type="com.readbook.readbookbackend.pojo.User">
+        <id property="id" column="user_id" />
+        <result property="userName" column="username" />
+        <result property="email" column="email" />
+        <result property="password" column="password" />
+        <result property="failuresOnLogin" column="failures_on_login" />
+        <result property="lastFailureOnLogin" column="last_failure_on_login" />
+        <result property="uploaded" column="uploaded" />
+        <result property="userRole" column="user_role" />
+        <result property="createdTime" column="created_time" />
+        <result property="updatedTime" column="updated_time" />
+    </resultMap>
+
+    <!-- 根据username查找有无此人的查询语句 -->
+    <select id="checkUsernameExists" resultMap="UserResultMap">
+        SELECT * FROM user WHERE username = #{userName}
+    </select>
+
+    <select id="selectUserByIdAndPassword" resultMap="UserResultMap">
+        SELECT * FROM user WHERE user_id = #{userId} AND password = #{password}
+    </select>
+
+    <!-- 根据username和密码检验查找有无此人的查询语句 -->
+    <select id="checkLoginCredentials" resultMap="UserResultMap">
+        SELECT * FROM user WHERE username = #{userName} AND password = #{password}
+    </select>
+
+    <select id="getUserNameById" resultType="java.lang.String">
+        SELECT username FROM user WHERE user_id = #{userId}
+    </select>
+
+    <!-- 插入用户的插入语句 -->
+    <insert id="insertUser">
+        INSERT INTO user (username, email, password, failures_on_login, last_failure_on_login, uploaded, user_role, created_time, updated_time)
+        VALUES (#{userName}, #{email}, #{password}, #{failuresOnLogin}, #{lastFailureOnLogin}, #{uploaded}, #{userRole}, #{createdTime}, #{updatedTime})
+        <selectKey resultType="java.math.BigInteger" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <!-- 更新邮箱的更新语句 -->
+    <update id="updateEmail">
+        UPDATE user SET email = #{email}, updated_time = #{updatedTime} WHERE user_id = #{userId}
+    </update>
+
+    <!-- 更新密码的更新语句 -->
+    <update id="updatePassword">
+        UPDATE user SET password = #{newPassword}, updated_time = #{updatedTime} WHERE user_id = #{userId}
+    </update>
+
+    <!-- 更新上一次登录失败时间和连续登录失败次数的更新语句 -->
+    <update id="updateLoginFailureInfo">
+        UPDATE user SET last_failure_on_login = #{lastFailureOnLogin}, failures_on_login = #{failuresOnLogin} WHERE username = #{userName}
+    </update>
+
+    <!-- 更新连续登录失败次数的更新语句 -->
+    <update id="updateFailCountZero" >
+        <!-- 先执行更新操作 -->
+        UPDATE user
+        SET failures_on_login = 0
+        WHERE username = #{userName};
+    </update>
+
+    <!-- 删除用户的删除语句（可根据实际需求添加此部分，这里仅为示例完整的CRUD操作） -->
+    <delete id="deleteUser">
+        DELETE FROM user WHERE username = #{userName}
+    </delete>
+</mapper>

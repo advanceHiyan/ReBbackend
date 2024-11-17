@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.readbook.readbookbackend.mapper.CategoryMapper">
+    <resultMap id="resultMap" type="com.readbook.readbookbackend.pojo.Category">
+            <id property="id" column="category_id"/>
+            <result property="cateName" column="cate_name"/>
+            <result property="referenceNumber" column="reference_number"/>
+    </resultMap>
+
+    
+    <!-- 根据类别名检查是否已存在该记录 -->
+    <select id="checkCategoryExists" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM category
+        WHERE cate_name = #{cateName}
+    </select>
+
+    <!-- 插入新的类别记录 -->
+    <insert id="insertNewCategory">
+        INSERT INTO category (cate_name, reference_number)
+        VALUES (#{cateName}, 0)
+    </insert>
+
+    <insert id="insertBookCategoryRela">
+        INSERT INTO book_category_relationship (book_id, cate_id) VALUES (#{bookId}, #{cateId})
+        <selectKey resultType="java.math.BigInteger" keyProperty="id" order="AFTER">
+            SELECT last_insert_id()
+        </selectKey>
+    </insert>
+
+    <!-- 实现添加新类别集合的方法 -->
+    <insert id="addNewCategories">
+        INSERT INTO category (cate_name, reference_number) VALUES
+        <foreach collection="categories" item="cateName" separator=",">
+            (#{cateName}, 0)
+        </foreach>
+    </insert>
+
+    <update id="addCountByName">
+        update category set reference_number = reference_number + 1
+        where cate_name = #{cateName}
+    </update>
+
+    <select id="getIdByName" resultType="java.math.BigInteger">
+        SELECT category.category_id
+        FROM category
+        WHERE category.cate_name = #{cateName}
+    </select>
+
+    <select id="getCategoryByName" resultMap="resultMap">
+        SELECT *
+        FROM category
+        WHERE category.cate_name = #{cateName}
+    </select>
+
+    <select id="getAllCategories" resultMap="resultMap">
+        SELECT *
+        FROM category
+        ORDER BY category.reference_number DESC
+    </select>
+
+    <select id="getCategoryIdByName" resultType="java.math.BigInteger">
+        SELECT category.category_id
+        FROM category
+        WHERE category.cate_name = #{cateName}
+    </select>
+</mapper>
