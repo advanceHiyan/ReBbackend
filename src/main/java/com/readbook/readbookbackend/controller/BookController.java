@@ -1,8 +1,8 @@
 package com.readbook.readbookbackend.controller;
 
 import com.readbook.readbookbackend.pojo.OneBook;
-import com.readbook.readbookbackend.service.BookService;
-import com.readbook.readbookbackend.service.CategoryService;
+import com.readbook.readbookbackend.service.port.BookService;
+import com.readbook.readbookbackend.service.port.CategoryService;
 import com.readbook.readbookbackend.utils.model.BookWithCate;
 import com.readbook.readbookbackend.utils.model.PageBooks;
 import com.readbook.readbookbackend.utils.Result;
@@ -11,11 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.readbook.readbookbackend.pojo.Category;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 

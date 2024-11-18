@@ -1,7 +1,6 @@
 package com.readbook.readbookbackend.utils.filter;
 
 import com.alibaba.fastjson.JSONObject;
-import com.readbook.readbookbackend.utils.JwtUtils;
 import com.readbook.readbookbackend.utils.Result;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;

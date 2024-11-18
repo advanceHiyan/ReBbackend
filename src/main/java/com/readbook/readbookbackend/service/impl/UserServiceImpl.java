@@ -2,8 +2,8 @@ package com.readbook.readbookbackend.service.impl;
 
 import com.readbook.readbookbackend.mapper.UserMapper;
 import com.readbook.readbookbackend.pojo.User;
-import com.readbook.readbookbackend.service.UserService;
-import com.readbook.readbookbackend.utils.JwtUtils;
+import com.readbook.readbookbackend.service.port.UserService;
+import com.readbook.readbookbackend.utils.filter.JwtUtils;
 import com.readbook.readbookbackend.utils.Result;
 import com.readbook.readbookbackend.utils.model.UserWithJwt;
 import org.springframework.beans.factory.annotation.Autowired;

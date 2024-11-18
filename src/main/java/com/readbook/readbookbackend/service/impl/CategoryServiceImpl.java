@@ -4,7 +4,7 @@ import com.readbook.readbookbackend.mapper.CategoryMapper;
 import com.readbook.readbookbackend.pojo.BookCategoryRela;
 import com.readbook.readbookbackend.pojo.Category;
 import com.readbook.readbookbackend.pojo.OneBook;
-import com.readbook.readbookbackend.service.CategoryService;
+import com.readbook.readbookbackend.service.port.CategoryService;
 import com.readbook.readbookbackend.utils.Result;
 import com.readbook.readbookbackend.utils.model.BookWithCate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @Service

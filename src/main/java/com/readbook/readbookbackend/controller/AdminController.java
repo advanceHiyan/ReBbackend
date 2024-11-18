@@ -1,7 +1,7 @@
 package com.readbook.readbookbackend.controller;
 
 import com.readbook.readbookbackend.pojo.BanLog;
-import com.readbook.readbookbackend.service.AdminService;
+import com.readbook.readbookbackend.service.port.AdminService;
 import com.readbook.readbookbackend.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

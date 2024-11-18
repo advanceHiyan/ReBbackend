@@ -4,14 +4,16 @@ import com.readbook.readbookbackend.mapper.CommentMapper;
 import com.readbook.readbookbackend.mapper.UserMapper;
 import com.readbook.readbookbackend.pojo.Comment;
 import com.readbook.readbookbackend.pojo.SecondComment;
-import com.readbook.readbookbackend.pojo.User;
-import com.readbook.readbookbackend.service.CommentService;
+import com.readbook.readbookbackend.service.port.CommentService;
 import com.readbook.readbookbackend.utils.Result;
+import com.readbook.readbookbackend.utils.model.CommentAndSecond;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -51,5 +53,16 @@ public class CommentServiceImpl implements CommentService {
         secondComment.setUpdatedDate(LocalDateTime.now());
         commentMapper.insertSecondComment(secondComment);
         return Result.success("Comment added successfully", secondComment);
+    }
+
+    @Override
+    public Result getComments(BigInteger bookid) {
+        List<CommentAndSecond> retComments = new ArrayList<>();
+        List<Comment> comments = commentMapper.getCommentsByBookId(bookid);
+        for (Comment comment : comments) {
+            List<SecondComment> secondComments = commentMapper.getSecondCommentsByCommentId(comment.getId());
+            retComments.add(new CommentAndSecond(comment, secondComments));
+        }
+        return Result.success("Comments fetched successfully", retComments);
     }
 }

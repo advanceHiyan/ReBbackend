@@ -1,7 +1,7 @@
 package com.readbook.readbookbackend.controller;
 
 import com.readbook.readbookbackend.pojo.User;
-import com.readbook.readbookbackend.service.UserService;
+import com.readbook.readbookbackend.service.port.UserService;
 import com.readbook.readbookbackend.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,6 +1,6 @@
 package com.readbook.readbookbackend.controller;
 
-import com.readbook.readbookbackend.service.CategoryService;
+import com.readbook.readbookbackend.service.port.CategoryService;
 import com.readbook.readbookbackend.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

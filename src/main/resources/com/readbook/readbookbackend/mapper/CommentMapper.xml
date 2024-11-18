@@ -42,4 +42,34 @@
         </selectKey>
     </insert>
 
+    <!-- 根据book_id查询评论列表的SQL语句 -->
+    <select id="getCommentsByBookId" resultMap="commentResultMap">
+        SELECT
+            comment_id ,
+            content,
+            created_time ,
+            updated_time,
+            user_id,
+            book_id
+        FROM
+            first_level_comment
+        WHERE
+            book_id = #{bookid}
+    </select>
+
+    <select id="getSecondCommentsByCommentId" resultMap="secondCommentResultMap">
+        SELECT
+        second_comment_id,
+        content,
+        created_time,
+        updated_time,
+        user_id,
+        comment_id,
+        respondee_id
+        FROM
+            second_level_comment<!-- 这里替换成你实际存储二级评论的表名 -->
+        WHERE
+        comment_id = #{commentId}
+    </select>
+
 </mapper>

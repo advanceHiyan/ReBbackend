@@ -1,8 +1,9 @@
 package com.readbook.readbookbackend.controller;
 
-import com.readbook.readbookbackend.service.CommentService;
+import com.readbook.readbookbackend.service.port.CommentService;
 import com.readbook.readbookbackend.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,4 +24,10 @@ public class CommentController {
     public Result replyComment(BigInteger userid, BigInteger commentid, String reply,BigInteger respondeeid) {
         return commentService.replyComment(userid, commentid, reply,respondeeid);
     }
+
+    @GetMapping("/usercenter/getcomments")
+    public Result getComments(BigInteger bookid) {
+        return commentService.getComments(bookid);
+    }
+
 }

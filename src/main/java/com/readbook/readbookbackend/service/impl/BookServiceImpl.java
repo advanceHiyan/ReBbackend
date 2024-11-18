@@ -3,23 +3,18 @@ package com.readbook.readbookbackend.service.impl;
 import com.readbook.readbookbackend.mapper.*;
 import com.readbook.readbookbackend.pojo.Category;
 import com.readbook.readbookbackend.pojo.OneBook;
-import com.readbook.readbookbackend.pojo.User;
 import com.readbook.readbookbackend.utils.model.UserBookCollection;
-import com.readbook.readbookbackend.service.BookService;
+import com.readbook.readbookbackend.service.port.BookService;
 import com.readbook.readbookbackend.utils.model.BookWithCate;
 import com.readbook.readbookbackend.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-
-import static java.lang.Math.random;
 
 @Service
 public class BookServiceImpl implements BookService {

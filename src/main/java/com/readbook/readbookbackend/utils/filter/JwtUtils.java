@@ -1,4 +1,4 @@
-package com.readbook.readbookbackend.utils;
+package com.readbook.readbookbackend.utils.filter;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

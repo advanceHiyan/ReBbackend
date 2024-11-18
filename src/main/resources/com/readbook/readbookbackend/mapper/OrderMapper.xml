@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.readbook.readbookbackend.mapper.OrderMapper">
+
+    <resultMap id="OrderInfoResultMap" type="com.readbook.readbookbackend.pojo.OrderInfo">
+        <id property="id" column="order_info_id"/>
+        <result property="value" column="value"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="updatedTime" column="updated_time"/>
+        <result property="payerId" column="payerId"/>
+        <result property="payeeId" column="payeeId"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <insert id="insertOrderInfo" keyProperty="id" useGeneratedKeys="true" keyColumn="order_info_id">
+        INSERT INTO order_info (value, created_time, updated_time, payer_id, payee_id, status) VALUES (#{value}, #{createdTime}, #{updatedTime}, #{payerId}, #{payeeId}, #{status})
+    </insert>
+
+
+
+    <resultMap id="OneBookResultMap" type="com.readbook.readbookbackend.pojo.OneBook">
+        <id property="id" column="book_id"/>
+        <result property="title" column="title"/>
+        <result property="author" column="author"/>
+        <result property="content" column="content"/>
+        <result property="heat" column="heat"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="updatedTime" column="updated_time"/>
+        <result property="creatorId" column="creator_id"/>
+        <result property="value" column="value"/>
+    </resultMap>
+
+    <select id="getBookListByIdList" resultMap="OneBookResultMap">
+        SELECT * FROM book WHERE book_id IN
+        <foreach collection="bookIdList" item="bookId" open="(" close=")" separator=",">
+            #{bookId}
+        </foreach>
+    </select>
+
+    <insert id="insertOrderToBook" keyProperty="id" useGeneratedKeys="true" keyColumn="order_book_relationship_id">
+        INSERT INTO order_book_relationship (order_info_id, book_id)
+        VALUES (#{orderInfoId}, #{bookId})
+    </insert>
+
+</mapper>

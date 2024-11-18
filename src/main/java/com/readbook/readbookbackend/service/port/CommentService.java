@@ -1,4 +1,4 @@
-package com.readbook.readbookbackend.service;
+package com.readbook.readbookbackend.service.port;
 
 import com.readbook.readbookbackend.utils.Result;
 
@@ -9,4 +9,6 @@ public interface CommentService {
     Result commentBook(BigInteger userid, BigInteger bookid, String content);
 
     Result replyComment(BigInteger userid, BigInteger commentid, String reply, BigInteger respondeeid);
+
+    Result getComments(BigInteger bookid);
 }
