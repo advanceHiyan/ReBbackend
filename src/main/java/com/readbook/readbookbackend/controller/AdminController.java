@@ -4,6 +4,7 @@ import com.readbook.readbookbackend.pojo.BanLog;
 import com.readbook.readbookbackend.service.port.AdminService;
 import com.readbook.readbookbackend.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,5 +31,15 @@ public class AdminController {
         banLog.setOverTime(endTime);
         banLog.setNote(note);
         return adminService.banUser(banLog);
+    }
+
+    @PostMapping("/admin/banbook")
+    public Result adminBanBook(BigInteger adminid, BigInteger bookid, String reason) {
+        return adminService.banBook(adminid, bookid, reason);
+    }
+
+    @DeleteMapping("/admin/endbanbook")
+    public Result adminEndBanBook(BigInteger adminid, BigInteger bookid) {
+        return adminService.endBanBook(adminid, bookid);
     }
 }

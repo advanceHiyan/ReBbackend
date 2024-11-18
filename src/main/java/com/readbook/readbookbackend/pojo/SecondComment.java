@@ -12,15 +12,6 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-//CREATE TABLE second_level_comment (
-//                                      second_comment_id BIGINT UNSIGNED NOT NULL PRIMARY KEY,
-//                                      content TEXT NOT NULL,
-//                                      created_time DATETIME NOT NULL,
-//                                      user_id BIGINT UNSIGNED NOT NULL,
-//                                      comment_id BIGINT UNSIGNED NOT NULL,
-//                                      FOREIGN KEY (user_id) REFERENCES user(user_id),
-//                                      FOREIGN KEY (comment_id) REFERENCES first_level_comment(comment_id)
-//);
 public class SecondComment {
     private BigInteger id;
     private String content;

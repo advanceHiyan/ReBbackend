@@ -3,6 +3,7 @@ package com.readbook.readbookbackend.service.impl;
 import com.readbook.readbookbackend.mapper.BookMapper;
 import com.readbook.readbookbackend.mapper.CategoryMapper;
 import com.readbook.readbookbackend.mapper.UserMapper;
+import com.readbook.readbookbackend.pojo.BanBook;
 import com.readbook.readbookbackend.pojo.BanLog;
 import com.readbook.readbookbackend.pojo.User;
 import com.readbook.readbookbackend.service.port.AdminService;
@@ -30,5 +31,28 @@ public class AdminServiceImpl implements AdminService {
         }
         userMapper.banUser(banLog);
         return Result.success("Ban user success",banLog);
+    }
+
+    @Override
+    public Result banBook(BigInteger adminid, BigInteger bookid, String reason) {
+        User user = userMapper.getUserById(adminid);
+        if(user.getUserRole() != 1) {
+            return Result.error("You are not an admin","008");
+        }
+        BanBook banBook = new BanBook();
+        banBook.setBookId(bookid);
+        banBook.setReason(reason);
+        bookMapper.banBook(banBook);
+        return Result.success("Ban book success",banBook);
+    }
+
+    @Override
+    public Result endBanBook(BigInteger adminid, BigInteger bookid) {
+        User user = userMapper.getUserById(adminid);
+        if(user.getUserRole() != 1) {
+            return Result.error("You are not an admin","009");
+        }
+        bookMapper.deleteBanBook(bookid);
+        return Result.success("End ban book success",bookid+" book successfully end banned");
     }
 }

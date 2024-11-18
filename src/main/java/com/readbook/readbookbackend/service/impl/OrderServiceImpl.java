@@ -26,6 +26,9 @@ public class OrderServiceImpl implements OrderService {
         List<OneBook> oneBookList = orderMapper.getBookListByIdList(bookIdList);
         int totalPrice = 0;
         for (OneBook oneBook : oneBookList) {
+            if(orderMapper.getBamBookByBookId(oneBook.getId()) != null) {
+                return null;
+            }
             totalPrice += oneBook.getValue();
         }
         OrderInfo orderInfo = new OrderInfo();

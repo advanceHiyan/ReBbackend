@@ -1,9 +1,6 @@
 package com.readbook.readbookbackend.mapper;
 
-import com.readbook.readbookbackend.pojo.OneBook;
-import com.readbook.readbookbackend.pojo.OrderBookRela;
-import com.readbook.readbookbackend.pojo.OrderInfo;
-import com.readbook.readbookbackend.pojo.UserBookOwner;
+import com.readbook.readbookbackend.pojo.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
@@ -33,4 +30,6 @@ public interface OrderMapper {
     void insertOwnerShip(BigInteger bookId, BigInteger userId);
 
     void updateUpdateTime(BigInteger orderId);
+
+    BanBook getBamBookByBookId(BigInteger bookId);
 }

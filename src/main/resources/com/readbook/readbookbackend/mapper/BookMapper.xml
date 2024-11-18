@@ -36,6 +36,7 @@
                         author = #{author} WHERE book_id = #{id}
     </update>
 
+
     <!-- 查询语句：根据作者、需要的类别和热度条件查找图书以及每个图书的所有类别 -->
     <select id="getBookByAuthorAndNeedCatesAndHeat" resultMap="OneBookResultMap">
         SELECT
@@ -87,4 +88,13 @@
         <result property="cateName" column="cateName"/>
         <result property="referenceNumber" column="referenceNumber"/>
     </resultMap>
+
+    <insert id="banBook" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ban_books (book_id, reason)
+        VALUES (#{bookId}, #{reason})
+    </insert>
+
+    <delete id="deleteBanBook">
+        DELETE FROM ban_books WHERE book_id = #{bookId}
+    </delete>
 </mapper>

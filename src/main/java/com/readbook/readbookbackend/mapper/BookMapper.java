@@ -1,5 +1,6 @@
 package com.readbook.readbookbackend.mapper;
 
+import com.readbook.readbookbackend.pojo.BanBook;
 import com.readbook.readbookbackend.pojo.Category;
 import com.readbook.readbookbackend.utils.model.BookWithCate;
 import org.apache.ibatis.annotations.Mapper;
@@ -32,4 +33,8 @@ public interface BookMapper {
     List<OneBook> getAllBooks(); //必须设置类id和数据库主键映射
 
     void insertOwnShip(BigInteger userId, BigInteger bookId);
+
+    void banBook(BanBook banBook);
+
+    void deleteBanBook(BigInteger bookId);
 }

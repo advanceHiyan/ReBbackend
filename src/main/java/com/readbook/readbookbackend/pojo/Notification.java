@@ -12,15 +12,6 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-//CREATE TABLE notification (
-//                              notification_id BIGINT UNSIGNED NOT NULL PRIMARY KEY,
-//                              receiver_id BIGINT UNSIGNED NOT NULL,
-//                              status INT NOT NULL,
-//                              context TEXT NOT NULL,
-//                              created_time datetime NOT NULL ,
-//                              updated_time datetime NOT NULL,
-//                              FOREIGN KEY (receiver_id) REFERENCES user(user_id)
-//);
 public class Notification {
     private BigInteger id;
     private BigInteger receiverId;

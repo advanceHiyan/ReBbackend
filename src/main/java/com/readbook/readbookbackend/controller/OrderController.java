@@ -27,6 +27,9 @@ public class OrderController {
             bookIdList.add(bookid);
         }
         OrderToUser orderToUser = orderService.addOrderBooksRelation(userid,bookIdList);
+        if (orderToUser == null) {
+            return Result.error("can not buy banned books","899");
+        }
         return Result.success("success create order",orderToUser);
     }
 

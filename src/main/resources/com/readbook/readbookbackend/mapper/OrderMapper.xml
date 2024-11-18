@@ -72,4 +72,8 @@
         SELECT * FROM user_book_ownership_relationship WHERE book_id = #{bookId} AND user_id = #{userId}
     </select>
 
+    <select id="getBamBookByBookId" resultType="com.readbook.readbookbackend.pojo.BanBook">
+        SELECT * FROM ban_books WHERE book_id = #{bookId}
+    </select>
+
 </mapper>

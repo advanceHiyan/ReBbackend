@@ -9,11 +9,6 @@ import java.math.BigInteger;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-//CREATE TABLE category (
-//                          category_id BIGINT UNSIGNED NOT NULL PRIMARY KEY,
-//                          cate_name VARCHAR(16) NOT NULL,
-//                          reference_number INT NOT NULL
-//);
 public class Category {
     private BigInteger id;
     private String cateName;
