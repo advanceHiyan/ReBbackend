@@ -25,6 +25,11 @@
         </selectKey>
     </insert>
 
+    <insert id="insertOwnShip">
+        INSERT INTO user_book_ownership_relationship (user_id, book_id)
+        VALUES (#{userId}, #{bookId})
+    </insert>
+
     <update id="updateBook">
         UPDATE book SET title = #{title}, content = #{content}, heat = #{heat},
                         updated_time = #{updatedTime}, value = #{value},

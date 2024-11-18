@@ -18,6 +18,7 @@ public class OrderToUser {
     private LocalDateTime createdTime;
     private BigInteger payerId;
     private Integer status;
+    private LocalDateTime payTime;
 
     private float totalValue;
     private Integer bookCount;
@@ -30,5 +31,10 @@ public class OrderToUser {
         this.status = orderInfo.getStatus();
         this.books = books;
         this.bookCount = books.size();
+        if(status == 0) {
+            this.payTime = null;
+        } else {
+            this.payTime = orderInfo.getUpdatedTime();
+        }
     }
 }

@@ -30,4 +30,6 @@ public interface BookMapper {
     List<Category> findCategoriesByBookId(BigInteger bookId);//必须设置类id和数据库主键映射
 
     List<OneBook> getAllBooks(); //必须设置类id和数据库主键映射
+
+    void insertOwnShip(BigInteger userId, BigInteger bookId);
 }

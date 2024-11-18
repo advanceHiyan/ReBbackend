@@ -45,4 +45,39 @@ public class OrderServiceImpl implements OrderService {
         }
         return orderToUser;
     }
+
+    @Override
+    public Result checkOrder(BigInteger userid, BigInteger orderid) {
+        OrderInfo orderInfo = orderMapper.getOrderByUserIdAndOrderId(userid, orderid);
+        if (orderInfo == null) {
+            return Result.error("order not exist or not belong to user","888");
+        }
+        List<OneBook> oneBookList = orderMapper.getBookListByOrderInfoId(orderid);
+        OrderToUser orderToUser = new OrderToUser(orderInfo, oneBookList);
+        return Result.success("success get order",orderToUser);
+    }
+
+    @Transactional
+    @Override
+    public Result payOrder(BigInteger userid, BigInteger orderid) {
+
+        if (orderMapper.getOrderByUserIdAndOrderId(userid, orderid) == null) {
+            return Result.error("order not exist or not belong to user","889");
+        }
+        List<OneBook> oneBookList = orderMapper.getBookListByOrderInfoId(orderid);
+        for (OneBook oneBook : oneBookList) {
+            if(orderMapper.getOwnerShipByBookIdAndUserId(oneBook.getId(), userid) != null) {
+                return Result.error("you already have payed this order or " +
+                        "you have already owned this book don't pay again","887");
+            }
+        }
+        orderMapper.setOrderStatusOne(orderid);
+        orderMapper.updateUpdateTime(orderid);
+        OrderInfo orderInfo = orderMapper.getOrderByUserIdAndOrderId(userid, orderid);
+        OrderToUser orderToUser = new OrderToUser(orderInfo, oneBookList);
+        for (OneBook oneBook : oneBookList) {
+            orderMapper.insertOwnerShip(oneBook.getId(), userid);
+        }
+        return Result.success("success pay order",orderToUser);
+    }
 }

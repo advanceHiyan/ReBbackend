@@ -6,6 +6,7 @@ import com.readbook.readbookbackend.utils.model.OrderToUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.math.BigInteger;
@@ -27,5 +28,15 @@ public class OrderController {
         }
         OrderToUser orderToUser = orderService.addOrderBooksRelation(userid,bookIdList);
         return Result.success("success create order",orderToUser);
+    }
+
+    @PostMapping("/usercenter/checkorder")
+    public Result checkOrder(BigInteger userid,BigInteger orderid) {
+        return orderService.checkOrder(userid,orderid);
+    }
+
+    @PostMapping("/usercenter/payorder")
+    public Result payOrder(BigInteger userid,BigInteger orderid) {
+        return orderService.payOrder(userid,orderid);
     }
 }

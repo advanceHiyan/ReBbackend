@@ -84,6 +84,7 @@ public class BookServiceImpl implements BookService {
         oneBook.setAuthor(author);
         bookMapper.insertNewBook(oneBook);
         System.out.println(oneBook);
+        bookMapper.insertOwnShip(userid, oneBook.getId());
         return Result.success("New book added successfully", oneBook);//代表成功
     }
 

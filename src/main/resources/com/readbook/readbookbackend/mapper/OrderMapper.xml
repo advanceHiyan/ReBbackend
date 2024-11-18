@@ -7,8 +7,8 @@
         <result property="value" column="value"/>
         <result property="createdTime" column="created_time"/>
         <result property="updatedTime" column="updated_time"/>
-        <result property="payerId" column="payerId"/>
-        <result property="payeeId" column="payeeId"/>
+        <result property="payerId" column="payer_id"/>
+        <result property="payeeId" column="payee_id"/>
         <result property="status" column="status"/>
     </resultMap>
 
@@ -16,6 +16,13 @@
         INSERT INTO order_info (value, created_time, updated_time, payer_id, payee_id, status) VALUES (#{value}, #{createdTime}, #{updatedTime}, #{payerId}, #{payeeId}, #{status})
     </insert>
 
+    <update id="setOrderStatusOne">
+        UPDATE order_info SET status = 1 WHERE order_info_id = #{orderId}
+    </update>
+
+    <update id="updateUpdateTime">
+        UPDATE order_info SET updated_time = NOW() WHERE order_info_id = #{orderId}
+    </update>
 
 
     <resultMap id="OneBookResultMap" type="com.readbook.readbookbackend.pojo.OneBook">
@@ -37,9 +44,32 @@
         </foreach>
     </select>
 
+    <select id="getOrderByUserIdAndOrderId" resultMap="OrderInfoResultMap">
+        SELECT * FROM order_info WHERE payer_id = #{userId} AND order_info_id = #{orderId}
+    </select>
+
+
     <insert id="insertOrderToBook" keyProperty="id" useGeneratedKeys="true" keyColumn="order_book_relationship_id">
         INSERT INTO order_book_relationship (order_info_id, book_id)
         VALUES (#{orderInfoId}, #{bookId})
     </insert>
+
+    <insert id="insertOwnerShip">
+        INSERT INTO user_book_ownership_relationship (user_id, book_id)
+        VALUES (#{userId}, #{bookId})
+    </insert>
+
+    <select id="getBookListByOrderInfoId" resultMap="OneBookResultMap">
+        SELECT *
+        FROM
+            book b
+                JOIN order_book_relationship obr ON b.book_id = obr.book_id
+        WHERE
+            obr.order_info_id = #{orderid}
+    </select>
+
+    <select id="getOwnerShipByBookIdAndUserId" resultType="com.readbook.readbookbackend.pojo.UserBookOwner">
+        SELECT * FROM user_book_ownership_relationship WHERE book_id = #{bookId} AND user_id = #{userId}
+    </select>
 
 </mapper>

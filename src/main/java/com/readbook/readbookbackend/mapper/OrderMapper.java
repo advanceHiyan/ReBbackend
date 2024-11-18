@@ -3,12 +3,14 @@ package com.readbook.readbookbackend.mapper;
 import com.readbook.readbookbackend.pojo.OneBook;
 import com.readbook.readbookbackend.pojo.OrderBookRela;
 import com.readbook.readbookbackend.pojo.OrderInfo;
+import com.readbook.readbookbackend.pojo.UserBookOwner;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
@@ -19,4 +21,16 @@ public interface OrderMapper {
     void insertOrderInfo(OrderInfo orderInfo);
 
     void insertOrderToBook(OrderBookRela orderBookRela);
+
+    OrderInfo getOrderByUserIdAndOrderId(BigInteger userId, BigInteger orderId);
+
+    List<OneBook> getBookListByOrderInfoId(BigInteger orderid);
+
+    UserBookOwner getOwnerShipByBookIdAndUserId(BigInteger bookId, BigInteger userId);
+
+    void setOrderStatusOne(BigInteger orderId);
+
+    void insertOwnerShip(BigInteger bookId, BigInteger userId);
+
+    void updateUpdateTime(BigInteger orderId);
 }
