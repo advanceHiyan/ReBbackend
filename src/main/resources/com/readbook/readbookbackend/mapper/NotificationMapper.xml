@@ -18,6 +18,15 @@
                )
     </insert>
 
+    <!-- 根据收件人id获取所有通知的SQL语句 -->
+    <select id="getNotificationsByReceiverId" resultMap="NotificationResultMap">
+        SELECT *
+        FROM
+            notification
+        WHERE
+            receiver_id = #{receiverId}
+    </select>
+
     <!-- 结果映射（这里插入操作不需要返回结果，但为了完整示例给出，可根据实际情况调整或删除） -->
     <resultMap id="NotificationResultMap" type="com.readbook.readbookbackend.pojo.Notification">
         <id property="id" column="notification_id"/>

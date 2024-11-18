@@ -15,4 +15,9 @@ public class NotificationController {
     public Result addNotify(String receiverid,String content) {
         return notificationService.addNotify(receiverid,content);
     }
+
+    @PostMapping("/usercenter/checknotify")
+    public Result checkNotify(String receiverid) {
+        return notificationService.checkNotify(receiverid);
+    }
 }
