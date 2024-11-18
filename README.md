@@ -19,8 +19,8 @@ mybatis版本：
             <version>3.0.3</version>
         </dependency>
 ```
-项目管理为meven
+项目管理为Maven
 数据库是华为高斯DB
 数据库版本类型：TaurusDB
-![3514732d1592cebd2ad7d38cc7bbe2f](https://github.com/user-attachments/assets/fd5ffe41-5bb0-4044-8dde-7cda9fb7d2e8)
+目前lombok和Maven存在一定的冲突导致@Data无法实现
 ![86bb7e6a2917b2552a6946a47c6aa20](https://github.com/user-attachments/assets/bb8efbb0-8acd-431e-a87f-eaa63b4d6916)
