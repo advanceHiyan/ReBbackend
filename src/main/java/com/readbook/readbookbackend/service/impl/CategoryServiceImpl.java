@@ -76,9 +76,13 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Result addNewCategory(String catename, BigInteger adminid) {
+        if(categoryMapper.getCategoryByName(catename)!= null) {
+            return Result.error("Category already exist","566");
+        }
         Category category = new Category();
         category.setCateName(catename);
         category.setReferenceNumber(0);
         categoryMapper.insertCategory(category);
+        return Result.success("Add category success And add category success", category);
     }
 }
