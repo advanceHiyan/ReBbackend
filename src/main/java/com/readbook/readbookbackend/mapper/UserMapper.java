@@ -1,5 +1,6 @@
 package com.readbook.readbookbackend.mapper;
 
+import com.readbook.readbookbackend.pojo.BanLog;
 import com.readbook.readbookbackend.pojo.User;
 import org.apache.ibatis.annotations.*;
 
@@ -42,4 +43,10 @@ public interface UserMapper {
 
     // 删除用户（可根据实际需求添加此方法，这里仅为示例完整的CRUD操作）
     int deleteUser(String userName);
+
+    User getUserById(BigInteger userid);
+
+    void banUser(BanLog banLog);
+
+    LocalDateTime getLatestUnbanTimeByUserId(BigInteger userId);
 }

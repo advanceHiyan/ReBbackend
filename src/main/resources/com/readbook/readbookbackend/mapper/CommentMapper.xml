@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.readbook.readbookbackend.mapper.CommentMapper">
+    <!-- 结果映射（这里插入操作不需要返回结果，但为了完整示例给出，可根据实际情况调整或删除） -->
+    <resultMap id="commentResultMap" type="com.readbook.readbookbackend.pojo.Comment">
+        <id property="id" column="comment_id"/>
+        <result property="content" column="content"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="updatedTime" column="updated_time"/>
+        <result property="userId" column="user_id"/>
+        <result property="bookId" column="book_id"/>
+    </resultMap>
+
+    <!-- 结果映射（这里插入操作不需要返回结果，但为了完整示例给出，可根据实际情况调整或删除） -->
+    <resultMap id="secondCommentResultMap" type="com.readbook.readbookbackend.pojo.SecondComment">
+        <id property="id" column="second_comment_id"/>
+        <result property="content" column="content"/>
+        <result property="createdDate" column="created_time"/>
+        <result property="updatedDate" column="updated_time"/>
+        <result property="userId" column="user_id"/>
+        <result property="commentId" column="comment_id"/>
+        <result property="respondeeId" column="respondee_id"/>
+    </resultMap>
+
+    <!-- 插入评论的SQL语句 -->
+    <insert id="insertComment">
+        INSERT INTO first_level_comment (content, created_time, updated_time, user_id, book_id)
+        VALUES (#{content}, #{createdTime}, #{updatedTime}, #{userId}, #{bookId})
+        <selectKey resultType="java.math.BigInteger" keyProperty="id" order="AFTER">
+            SELECT last_insert_id()
+        </selectKey>
+    </insert>
+
+
+    <!-- 插入二级评论的SQL语句 -->
+    <insert id="insertSecondComment">
+        INSERT INTO second_level_comment (content, created_time, updated_time, user_id, comment_id, respondee_id)
+        VALUES (#{content}, #{createdDate}, #{updatedDate}, #{userId}, #{commentId}, #{respondeeId})
+        <!-- 获取插入后自动生成的主键值，并设置到SecondComment类的id属性中 -->
+        <selectKey resultType="java.math.BigInteger" keyProperty="id" order="AFTER">
+            SELECT last_insert_id()
+        </selectKey>
+    </insert>
+
+</mapper>

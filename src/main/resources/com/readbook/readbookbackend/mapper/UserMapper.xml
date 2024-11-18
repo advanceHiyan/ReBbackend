@@ -34,6 +34,10 @@
         SELECT username FROM user WHERE user_id = #{userId}
     </select>
 
+    <select id="getUserById" resultMap="UserResultMap">
+        SELECT * FROM user WHERE user_id = #{userid}
+    </select>
+
     <!-- 插入用户的插入语句 -->
     <insert id="insertUser">
         INSERT INTO user (username, email, password, failures_on_login, last_failure_on_login, uploaded, user_role, created_time, updated_time)
@@ -42,6 +46,7 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
     </insert>
+
 
     <!-- 更新邮箱的更新语句 -->
     <update id="updateEmail">
@@ -70,4 +75,39 @@
     <delete id="deleteUser">
         DELETE FROM user WHERE username = #{userName}
     </delete>
+
+    <!-- 插入封禁用户记录的SQL语句 -->
+    <insert id="banUser" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO ban_log (
+            ban_log_id,
+            user_id,
+            admin_id,
+            startTime,
+            overTime,
+            banReason,
+            note
+        )
+        VALUES (
+                   #{id},
+                   #{userId},
+                   #{adminId},
+                   #{startTime},
+                   #{overTime},
+                   #{banReason},
+                   #{note}
+               )
+    </insert>
+
+    <select id="getLatestUnbanTimeByUserId" resultType="java.time.LocalDateTime">
+        SELECT
+            MAX(overTime) as latestUnbanTime
+        FROM
+            ban_log
+        WHERE
+            user_id = #{userId}
+        HAVING
+            MAX(overTime) IS NOT NULL
+    </select>
+
+
 </mapper>

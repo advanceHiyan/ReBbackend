@@ -3,6 +3,7 @@ package com.readbook.readbookbackend.service.impl;
 import com.readbook.readbookbackend.mapper.*;
 import com.readbook.readbookbackend.pojo.Category;
 import com.readbook.readbookbackend.pojo.OneBook;
+import com.readbook.readbookbackend.pojo.User;
 import com.readbook.readbookbackend.utils.model.UserBookCollection;
 import com.readbook.readbookbackend.service.BookService;
 import com.readbook.readbookbackend.utils.model.BookWithCate;
@@ -68,6 +69,10 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Result addNewBook(BigInteger userid, String title, String content, Integer value) {
+        LocalDateTime banEndTime = userMapper.getLatestUnbanTimeByUserId(userid);
+        if(banEndTime != null && LocalDateTime.now().isBefore(banEndTime)) {
+            return Result.error("User are banned Can't add book", "001");
+        }
         if(bookMapper.getBookByTitle(title)!= null) {
             return Result.error("Book already exist", "555");
         }
@@ -89,6 +94,10 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Result modifyBook(BigInteger userid, BigInteger bookid, String content, Integer value) {
+        LocalDateTime banEndTime = userMapper.getLatestUnbanTimeByUserId(userid);
+        if(banEndTime != null && LocalDateTime.now().isBefore(banEndTime)) {
+            return Result.error("User are banned Can't modify book", "002");
+        }
         OneBook oneBook = bookMapper.getBookById(bookid);
         if(oneBook == null) {
             return Result.error("Book not exist", "777");

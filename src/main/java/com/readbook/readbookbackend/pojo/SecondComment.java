@@ -28,4 +28,5 @@ public class SecondComment {
     private LocalDateTime updatedDate;
     private BigInteger userId;
     private BigInteger commentId;
+    private BigInteger respondeeId;
 }
