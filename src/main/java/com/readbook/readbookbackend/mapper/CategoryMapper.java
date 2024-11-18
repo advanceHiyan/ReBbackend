@@ -31,4 +31,6 @@ public interface CategoryMapper {
     void addCountByName(String cateName);
 
     ArrayList<BigInteger> getCateSelectBookIds(ArrayList<String> cateNames);
+
+    void insertCategory(Category category);
 }

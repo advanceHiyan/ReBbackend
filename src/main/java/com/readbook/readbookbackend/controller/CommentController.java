@@ -3,6 +3,7 @@ package com.readbook.readbookbackend.controller;
 import com.readbook.readbookbackend.service.port.CommentService;
 import com.readbook.readbookbackend.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,4 +31,13 @@ public class CommentController {
         return commentService.getComments(bookid);
     }
 
+    @DeleteMapping("/usercenter/deletereply")
+    public Result deleteReply(BigInteger userid, BigInteger replyid) {
+        return commentService.deleteReply(userid, replyid);
+    }
+
+    @DeleteMapping("/usercenter/deletecomment")
+    public Result deleteComment(BigInteger userid, BigInteger commentid) {
+        return commentService.deleteComment(userid, commentid);
+    }
 }

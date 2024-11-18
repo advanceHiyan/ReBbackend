@@ -18,4 +18,6 @@ public interface CategoryService {
     ArrayList<BigInteger> getCateIds(ArrayList<String> cates);
 
     ArrayList<BigInteger> getCateSelectBookIds(ArrayList<String> cates);
+
+    Result addNewCategory(String catename, BigInteger adminid);
 }

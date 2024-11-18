@@ -4,11 +4,13 @@ import com.readbook.readbookbackend.mapper.CommentMapper;
 import com.readbook.readbookbackend.mapper.UserMapper;
 import com.readbook.readbookbackend.pojo.Comment;
 import com.readbook.readbookbackend.pojo.SecondComment;
+import com.readbook.readbookbackend.pojo.User;
 import com.readbook.readbookbackend.service.port.CommentService;
 import com.readbook.readbookbackend.utils.Result;
 import com.readbook.readbookbackend.utils.model.CommentAndSecond;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -64,5 +66,33 @@ public class CommentServiceImpl implements CommentService {
             retComments.add(new CommentAndSecond(comment, secondComments));
         }
         return Result.success("Comments fetched successfully", retComments);
+    }
+
+    @Override
+    public Result deleteReply(BigInteger userid, BigInteger replyid) {
+        User user = userMapper.getUserById(userid);
+        SecondComment secondComment = commentMapper.getSecondCommentsByreplyId(replyid);
+        if(user.getUserRole() != 1 && !secondComment.getUserId().equals(userid)) {
+            return Result.error("User is not authorized to delete this comment", "006");
+        }
+        commentMapper.deleteSecondComment(replyid);
+        return Result.success("Reply deleted successfully","already deleted");
+    }
+
+    @Transactional
+    @Override
+    public Result deleteComment(BigInteger userid, BigInteger commentid) {
+        User user = userMapper.getUserById(userid);
+        Comment comment = commentMapper.getCommentById(commentid);
+        if(user.getUserRole() != 1 && !comment.getUserId().equals(userid)) {
+            return Result.error("User is not authorized to delete this comment", "007");
+        }
+        List<SecondComment> secondComments = commentMapper.getSecondCommentsByCommentId(commentid);
+        for (SecondComment secondComment : secondComments) {
+            commentMapper.deleteSecondComment(secondComment.getId());
+        }
+        commentMapper.deleteComment(commentid);
+        return Result.success("Comment deleted successfully and its replies also deleted",
+                "already deleted");
     }
 }

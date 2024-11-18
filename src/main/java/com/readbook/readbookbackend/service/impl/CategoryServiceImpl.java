@@ -73,4 +73,12 @@ public class CategoryServiceImpl implements CategoryService {
     public ArrayList<BigInteger> getCateSelectBookIds(ArrayList<String> cates) {
         return categoryMapper.getCateSelectBookIds(cates);
     }
+
+    @Override
+    public Result addNewCategory(String catename, BigInteger adminid) {
+        Category category = new Category();
+        category.setCateName(catename);
+        category.setReferenceNumber(0);
+        categoryMapper.insertCategory(category);
+    }
 }

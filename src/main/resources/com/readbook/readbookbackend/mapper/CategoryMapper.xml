@@ -36,6 +36,11 @@
         </foreach>
     </insert>
 
+    <insert id="insertCategory" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO category (cate_name, reference_number)
+        VALUES (#{cateName}, 0)
+    </insert>
+
     <update id="addCountByName">
         update category set reference_number = reference_number + 1
         where cate_name = #{cateName}

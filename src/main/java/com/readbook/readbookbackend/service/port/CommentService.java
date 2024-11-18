@@ -11,4 +11,8 @@ public interface CommentService {
     Result replyComment(BigInteger userid, BigInteger commentid, String reply, BigInteger respondeeid);
 
     Result getComments(BigInteger bookid);
+
+    Result deleteReply(BigInteger userid, BigInteger replyid);
+
+    Result deleteComment(BigInteger userid, BigInteger commentid);
 }

@@ -72,4 +72,20 @@
         comment_id = #{commentId}
     </select>
 
+    <select id="getSecondCommentsByreplyId" resultMap="secondCommentResultMap">
+        SELECT* FROM second_level_comment WHERE second_comment_id = #{replyId}
+    </select>
+
+    <select id="getCommentById" resultMap="commentResultMap">
+        SELECT* FROM first_level_comment WHERE comment_id = #{commentId}
+    </select>
+
+    <delete id="deleteSecondComment">
+        DELETE FROM second_level_comment WHERE second_comment_id = #{replyId}
+    </delete>
+
+    <delete id="deleteComment">
+        DELETE FROM first_level_comment WHERE comment_id = #{commentId}
+    </delete>
+
 </mapper>

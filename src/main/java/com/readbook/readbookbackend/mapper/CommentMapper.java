@@ -17,4 +17,12 @@ public interface CommentMapper {
     List<Comment> getCommentsByBookId(BigInteger bookid);
 
     List<SecondComment> getSecondCommentsByCommentId(BigInteger commentId);
+
+    SecondComment getSecondCommentsByreplyId(BigInteger replyId);
+
+    void deleteSecondComment(BigInteger replyId);
+
+    Comment getCommentById(BigInteger commentId);
+
+    void deleteComment(BigInteger commentId);
 }
