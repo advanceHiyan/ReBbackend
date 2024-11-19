@@ -60,14 +60,17 @@ https://blog.csdn.net/u012660464/article/details/114113349
 如果你用高斯DB，先按照这个教程配置本地证书：
 https://support.huaweicloud.com/intl/zh-cn/usermanual-gaussdbformysql/gaussdbformysql_02_0018.html
 注意keytool.exe用jdk的，详情看你自己电脑上的jdk安装目录。
+
 ![b3cf005eceea5e0a293812dc5f19e57](https://github.com/user-attachments/assets/438426bd-9bae-4113-aa73-e0da240d8f59)
 这三个参数都用false。
+
+
 然后看src/main/resources/application.properties
 ![image](https://github.com/user-attachments/assets/46e16016-4de2-476a-bfac-ff36c60cd774)
 点击左上角的木桶，看能不能连上。能连上就成功了。
 当这个仓库公开后我的高斯DB账号应该就过期了，所以不怕泄露账号密码。
 
-### 六、如何使用。
+### 六、如何启动。
 运行com/readbook/readbookbackend/ReadBookBackendApplication.java即可。
 ### 七、项目源代码说明
 Controller控制层，和前端交互。调用Service层方法
