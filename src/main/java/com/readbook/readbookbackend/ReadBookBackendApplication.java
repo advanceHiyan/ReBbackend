@@ -11,5 +11,4 @@ public class ReadBookBackendApplication {
     public static void main(String[] args) {
         SpringApplication.run(ReadBookBackendApplication.class, args);
     }
-
 }
