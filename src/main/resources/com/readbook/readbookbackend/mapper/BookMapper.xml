@@ -83,6 +83,10 @@
         SELECT * FROM book where true
     </select>
 
+    <select id="getBookByAuthorId" resultMap="OneBookResultMap">
+        SELECT * FROM book WHERE creator_id = #{authorId}
+    </select>
+
     <resultMap id="categoryResultMap" type="com.readbook.readbookbackend.pojo.Category">
         <id property="id" column="id"/>
         <result property="cateName" column="cateName"/>

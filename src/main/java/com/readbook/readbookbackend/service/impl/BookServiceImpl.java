@@ -135,4 +135,42 @@ public class BookServiceImpl implements BookService {
         BookWithCate bookWithCate = new BookWithCate(oneBook, categories);
         return Result.success("Book read successfully", bookWithCate);
     }
+
+    @Override
+    public Result getMarkedBooks(BigInteger userid) {
+        List<BookWithCate> bookWithCates = new ArrayList<>();
+        List<OneBook> bookList = bookCollectMapper.getMarkedBookByUser(userid);
+        for(OneBook oneBook : bookList) {
+            System.out.println(oneBook.getId());
+            List<Category> categories = bookMapper.findCategoriesByBookId(oneBook.getId());
+            BookWithCate bookWithCate = new BookWithCate(oneBook, categories);
+            bookWithCates.add(bookWithCate);
+        }
+        return Result.success("User marked books successfully", bookWithCates);
+    }
+
+    @Override
+    public Result getBookByAuthorId(BigInteger userid) {
+        List<BookWithCate> bookWithCates = new ArrayList<>();
+        List<OneBook> bookList = bookMapper.getBookByAuthorId(userid);
+        for(OneBook oneBook : bookList) {
+            List<Category> categories = bookMapper.findCategoriesByBookId(oneBook.getId());
+            BookWithCate bookWithCate = new BookWithCate(oneBook, categories);
+            bookWithCates.add(bookWithCate);
+        }
+        return Result.success("User book list by author successfully", bookWithCates);
+    }
+
+    @Override
+    public Result getOwnedBooks(BigInteger userid) {
+        List<BookWithCate> bookWithCates = new ArrayList<>();
+        List<OneBook> bookList = bookOwnerMapper.getOwnedBookByUser(userid);
+        for(OneBook oneBook : bookList) {
+
+            List<Category> categories = bookMapper.findCategoriesByBookId(oneBook.getId());
+            BookWithCate bookWithCate = new BookWithCate(oneBook, categories);
+            bookWithCates.add(bookWithCate);
+        }
+        return Result.success("User owned books successfully", bookWithCates);
+    }
 }

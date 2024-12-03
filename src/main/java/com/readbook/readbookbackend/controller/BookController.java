@@ -55,6 +55,22 @@ public class BookController {
         return bookService.bookmark(userid, bookid,annotation);
     }
 
+    @GetMapping("/usercenter/getmarkedbooks")
+    public Result getMarkedBooks(BigInteger userid) {
+        return bookService.getMarkedBooks(userid);
+    }
+
+    @GetMapping("/usercenter/getbookbyauthorid")
+    public Result getBookByAuthorId(BigInteger userid) {
+        return bookService.getBookByAuthorId(userid);
+    }
+
+    @GetMapping("/usercenter/getownedbooks")
+    public Result getOwnedBooks(BigInteger userid) {
+        return bookService.getOwnedBooks(userid);
+    }
+
+
     @PostMapping("/usercenter/bookfilter")
     public Result bookfilter(BigInteger authorid, String[] categories, Integer heatRequire) {
         ArrayList<BigInteger> cateSelectBookIds;

@@ -20,4 +20,10 @@ public interface BookService {
     Result modifyBook(BigInteger userid, BigInteger bookid, String content, Integer value);
 
     Result readBook(BigInteger userid,BigInteger bookid);
+
+    Result getMarkedBooks(BigInteger userid);
+
+    Result getBookByAuthorId(BigInteger userid);
+
+    Result getOwnedBooks(BigInteger userid);
 }

@@ -37,4 +37,6 @@ public interface BookMapper {
     void banBook(BanBook banBook);
 
     void deleteBanBook(BigInteger bookId);
+
+    List<OneBook> getBookByAuthorId(BigInteger authorId);
 }
