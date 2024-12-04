@@ -29,6 +29,7 @@
         <id property="id" column="book_id"/>
         <result property="title" column="title"/>
         <result property="author" column="author"/>
+        <result property="description" column="description"/>
         <result property="content" column="content"/>
         <result property="heat" column="heat"/>
         <result property="createdTime" column="created_time"/>

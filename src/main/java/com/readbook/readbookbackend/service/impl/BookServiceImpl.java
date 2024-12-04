@@ -63,7 +63,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Result addNewBook(BigInteger userid, String title, String content, Integer value) {
+    public Result addNewBook(BigInteger userid, String title, String content, Integer value,String description) {
         LocalDateTime banEndTime = userMapper.getLatestUnbanTimeByUserId(userid);
         if(banEndTime != null && LocalDateTime.now().isBefore(banEndTime)) {
             return Result.error("User are banned Can't add book", "001");
@@ -80,6 +80,7 @@ public class BookServiceImpl implements BookService {
         oneBook.setCreatedTime(LocalDateTime.now());
         oneBook.setUpdatedTime(LocalDateTime.now());
         oneBook.setCreatorId(userid);
+        oneBook.setDescription(description);
         String author = userMapper.getUserNameById(userid);
         oneBook.setAuthor(author);
         bookMapper.insertNewBook(oneBook);
@@ -89,7 +90,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Result modifyBook(BigInteger userid, BigInteger bookid, String content, Integer value) {
+    public Result modifyBook(BigInteger userid, BigInteger bookid, String content, Integer value,String description) {
         LocalDateTime banEndTime = userMapper.getLatestUnbanTimeByUserId(userid);
         if(banEndTime != null && LocalDateTime.now().isBefore(banEndTime)) {
             return Result.error("User are banned Can't modify book", "002");
@@ -108,6 +109,13 @@ public class BookServiceImpl implements BookService {
             oneBook.setValue(value);
             oneBook.setUpdatedTime(LocalDateTime.now());
             flag = false;
+        }
+        if(description != null) {
+            if(!(oneBook.getDescription() != null && description == oneBook.getDescription())) {
+                oneBook.setDescription(description);
+                oneBook.setUpdatedTime(LocalDateTime.now());
+                flag = false;
+            }
         }
         if(flag) {
             return Result.error("Nothing to modify", "778");

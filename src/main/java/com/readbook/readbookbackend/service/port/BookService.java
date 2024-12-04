@@ -15,9 +15,9 @@ public interface BookService {
     List<BookWithCate> bookfilter(BigInteger authorId, List<BigInteger> cateSelectBookIds, Integer heatRequire);
 
 
-    Result addNewBook(BigInteger userid, String title, String content, Integer value);
+    Result addNewBook(BigInteger userid, String title, String content, Integer value,String description);
 
-    Result modifyBook(BigInteger userid, BigInteger bookid, String content, Integer value);
+    Result modifyBook(BigInteger userid, BigInteger bookid, String content, Integer value,String description);
 
     Result readBook(BigInteger userid,BigInteger bookid);
 

@@ -16,6 +16,7 @@ public class OneBook {
     private BigInteger id;
     private String title;
     private String author;
+    private String description;
     private String content;
     private Integer heat;
     private LocalDateTime createdTime;

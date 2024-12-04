@@ -6,6 +6,7 @@
         <id property="id" column="book_id" />
         <result property="title" column="title" />
         <result property="content" column="content" />
+        <result property="description" column="description" />
         <result property="heat" column="heat" />
         <result property="createdTime" column="created_time" />
         <result property="updatedTime" column="updated_time" />
@@ -17,8 +18,8 @@
     <!-- 插入语句：插入新图书 -->
     <!-- 插入语句：插入新图书 -->
     <insert id="insertNewBook">
-        INSERT INTO book (title, content, heat, created_time, updated_time, creator_id, value, author)
-        VALUES (#{title}, #{content}, #{heat}, #{createdTime}, #{updatedTime}, #{creatorId}, #{value}, #{author})
+        INSERT INTO book (title, content,description ,heat, created_time, updated_time, creator_id, value, author)
+        VALUES (#{title}, #{content},#{description}, #{heat}, #{createdTime}, #{updatedTime}, #{creatorId}, #{value}, #{author})
         <!-- 使用selectKey获取插入后生成的主键值并设置给book.id -->
         <selectKey keyProperty="id" resultType="java.math.BigInteger" order="AFTER">
             SELECT LAST_INSERT_ID()
@@ -33,6 +34,7 @@
     <update id="updateBook">
         UPDATE book SET title = #{title}, content = #{content}, heat = #{heat},
                         updated_time = #{updatedTime}, value = #{value},
+                        description = #{description},
                         author = #{author} WHERE book_id = #{id}
     </update>
 

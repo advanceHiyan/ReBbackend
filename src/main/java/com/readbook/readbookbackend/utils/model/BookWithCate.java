@@ -21,6 +21,7 @@ public class BookWithCate {
     private List<Category> cate;
 
     private Integer heat;
+    private String description;
     private String content;
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;
@@ -38,5 +39,6 @@ public class BookWithCate {
         this.updatedTime = book.getUpdatedTime();
         this.creatorId = book.getCreatorId();
         this.value = book.getValue();
+        this.description = book.getDescription();
     }
 }

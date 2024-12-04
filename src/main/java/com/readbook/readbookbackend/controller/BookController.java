@@ -28,11 +28,12 @@ public class BookController {
 
     @Transactional
     @PostMapping("/usercenter/newbook")
-    public Result addNewBook(BigInteger userid, String title, String content, Integer value, String[] categories) {
+    public Result addNewBook(BigInteger userid, String title, String content,
+                             Integer value, String[] categories,String description) {
         ArrayList<String> categoriesList = new ArrayList<>(Arrays.asList(categories));
         System.out.println(categoriesList);
         categoryService.addNewCategories(categoriesList);
-        Result result = bookService.addNewBook(userid, title, content, value);
+        Result result = bookService.addNewBook(userid, title, content, value, description);
         if(result.getCode() != null) {
             return result;
         }
@@ -45,8 +46,8 @@ public class BookController {
     }
 
     @PostMapping("/usercenter/modifybook")
-    public Result modifyBook(BigInteger userid, BigInteger bookid, String content, Integer value) {
-        return bookService.modifyBook(userid, bookid, content, value);
+    public Result modifyBook(BigInteger userid, BigInteger bookid, String content, Integer value,String description) {
+        return bookService.modifyBook(userid, bookid, content, value, description);
     }
 
 
