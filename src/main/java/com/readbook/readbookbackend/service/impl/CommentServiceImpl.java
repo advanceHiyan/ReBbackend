@@ -33,6 +33,8 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = new Comment();
         comment.setBookId(bookid);
         comment.setUserId(userid);
+        String username = userMapper.getUserById(userid).getUserName();
+        comment.setUsername(username);
         comment.setContent(content);
         comment.setCreatedTime(LocalDateTime.now());
         comment.setUpdatedTime(LocalDateTime.now());
@@ -46,9 +48,11 @@ public class CommentServiceImpl implements CommentService {
         if(banEndTime!= null && LocalDateTime.now().isBefore(banEndTime)) {
             return Result.error("User are banned Can't reply", "004");
         }
+        String username = userMapper.getUserById(userid).getUserName();
         SecondComment secondComment = new SecondComment();
         secondComment.setCommentId(commentid);
         secondComment.setUserId(userid);
+        secondComment.setUsername(username);
         secondComment.setContent(reply);
         secondComment.setRespondeeId(respondeeid);
         secondComment.setCreatedDate(LocalDateTime.now());
@@ -63,7 +67,12 @@ public class CommentServiceImpl implements CommentService {
         List<Comment> comments = commentMapper.getCommentsByBookId(bookid);
         for (Comment comment : comments) {
             List<SecondComment> secondComments = commentMapper.getSecondCommentsByCommentId(comment.getId());
-            retComments.add(new CommentAndSecond(comment, secondComments));
+            String username = userMapper.getUserById(comment.getUserId()).getUserName();
+            for (SecondComment secondComment : secondComments) {
+                String repliedUsername = userMapper.getUserById(secondComment.getUserId()).getUserName();
+                secondComment.setUsername(repliedUsername);
+            }
+            retComments.add(new CommentAndSecond(comment, secondComments, username));
         }
         return Result.success("Comments fetched successfully", retComments);
     }

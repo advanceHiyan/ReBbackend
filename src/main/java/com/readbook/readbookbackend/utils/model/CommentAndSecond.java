@@ -18,10 +18,11 @@ public class CommentAndSecond {
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;
     private BigInteger userId;
+    private String username;
     private BigInteger bookId;
     private List<SecondComment> secondComments;
 
-    public CommentAndSecond(Comment comment, List<SecondComment> secondComments) {
+    public CommentAndSecond(Comment comment, List<SecondComment> secondComments,String username) {
         this.id = comment.getId();
         this.content = comment.getContent();
         this.createdTime = comment.getCreatedTime();
@@ -29,5 +30,6 @@ public class CommentAndSecond {
         this.userId = comment.getUserId();
         this.bookId = comment.getBookId();
         this.secondComments = secondComments;
+        this.username = username;
     }
 }

@@ -18,6 +18,7 @@ public class SecondComment {
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
     private BigInteger userId;
+    private String username;
     private BigInteger commentId;
     private BigInteger respondeeId;
 }

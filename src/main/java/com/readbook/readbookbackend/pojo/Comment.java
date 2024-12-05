@@ -18,5 +18,6 @@ public class Comment {
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;
     private BigInteger userId;
+    private String username;
     private BigInteger bookId;
 }
