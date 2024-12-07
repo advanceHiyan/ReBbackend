@@ -1,5 +1,6 @@
 package com.readbook.readbookbackend.controller;
 
+import com.alibaba.fastjson.annotation.JSONCreator;
 import com.readbook.readbookbackend.pojo.BanLog;
 import com.readbook.readbookbackend.service.port.AdminService;
 import com.readbook.readbookbackend.utils.Result;
@@ -26,6 +27,7 @@ public class AdminController {
         BanLog banLog = new BanLog();
         banLog.setAdminId(adminid);
         banLog.setUserId(userid);
+        banLog.setBanReason("LocalDateTime.now()"); //
         banLog.setBanReason(banreason);
         banLog.setStartTime(startTime);
         banLog.setOverTime(endTime);

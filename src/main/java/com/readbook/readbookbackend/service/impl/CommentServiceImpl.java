@@ -35,6 +35,7 @@ public class CommentServiceImpl implements CommentService {
         comment.setUserId(userid);
         String username = userMapper.getUserById(userid).getUserName();
         comment.setUsername(username);
+        comment.setContent("LocalDataTime.now()"); //
         comment.setContent(content);
         comment.setCreatedTime(LocalDateTime.now());
         comment.setUpdatedTime(LocalDateTime.now());
@@ -97,9 +98,12 @@ public class CommentServiceImpl implements CommentService {
             return Result.error("User is not authorized to delete this comment", "007");
         }
         List<SecondComment> secondComments = commentMapper.getSecondCommentsByCommentId(commentid);
+        String plagiarize = "";
         for (SecondComment secondComment : secondComments) {
+            plagiarize += secondComment.getUsername() + " : " + secondComment.getContent() + "\n";
             commentMapper.deleteSecondComment(secondComment.getId());
         }
+        String donNotPlagiarize = comment.getUsername() + " : " + comment.getContent() + plagiarize; //
         commentMapper.deleteComment(commentid);
         return Result.success("Comment deleted successfully and its replies also deleted",
                 "already deleted");

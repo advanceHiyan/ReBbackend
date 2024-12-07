@@ -24,6 +24,7 @@
         UPDATE order_info SET updated_time = NOW() WHERE order_info_id = #{orderId}
     </update>
 
+    <!-- @Creator : advanceHiyan -->
 
     <resultMap id="OneBookResultMap" type="com.readbook.readbookbackend.pojo.OneBook">
         <id property="id" column="book_id"/>

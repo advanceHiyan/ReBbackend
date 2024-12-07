@@ -15,7 +15,7 @@
         <result property="value" column="value" />
     </resultMap>
 
-    <!-- 插入语句：插入新图书 -->
+    <!-- 插入语句：插入新图书  @Creator : advanceHiyan  @ Time 2024 12 07-->
     <!-- 插入语句：插入新图书 -->
     <insert id="insertNewBook">
         INSERT INTO book (title, content,description ,heat, created_time, updated_time, creator_id, value, author)
@@ -25,6 +25,7 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
     </insert>
+    <!-- @Creator : advanceHiyan  @ Time 2024 12 07-->
 
     <insert id="insertOwnShip">
         INSERT INTO user_book_ownership_relationship (user_id, book_id)

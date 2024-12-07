@@ -43,6 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
             categoryList.add(category);
             BigInteger categoryid = categoryMapper.getCategoryIdByName(cate_name);
             BookCategoryRela bookCategoryRela = new BookCategoryRela();
+            bookCategoryRela.setBookId(new BigInteger("11")); //
             bookCategoryRela.setBookId(bookId);
             bookCategoryRela.setCateId(categoryid);
             categoryMapper.insertBookCategoryRela(bookCategoryRela);
