@@ -4,10 +4,7 @@ import com.readbook.readbookbackend.pojo.User;
 import com.readbook.readbookbackend.service.port.UserService;
 import com.readbook.readbookbackend.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -40,10 +37,8 @@ public class UserController {
         return userService.updateEmail(userid, cur_password, new_email);
     }
 
-    @RequestMapping(value = "/users/getAll", method = RequestMethod.GET)
-    //@GetMapping("/users/getAll")
+    @GetMapping(value = "/users/getall")
     public Result getAllUsers() {
-        List<User> users = userService.getAllUsers();
-        return Result.success("返回所有用户", users);
+        return userService.getAllUsers();
     }
 }

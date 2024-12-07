@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public interface UserService {
-    List<User> getAllUsers();
+    Result getAllUsers();
 
     Result signUp(String username, String password, String email,Integer userRole);
 

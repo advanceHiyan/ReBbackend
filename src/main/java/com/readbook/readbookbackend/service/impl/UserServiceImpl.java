@@ -5,6 +5,7 @@ import com.readbook.readbookbackend.pojo.User;
 import com.readbook.readbookbackend.service.port.UserService;
 import com.readbook.readbookbackend.utils.filter.JwtUtils;
 import com.readbook.readbookbackend.utils.Result;
+import com.readbook.readbookbackend.utils.model.UserWithIsBan;
 import com.readbook.readbookbackend.utils.model.UserWithJwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigInteger;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -103,7 +105,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userMapper.selectAllUsers();
+    public Result getAllUsers() {
+        List<User> users = userMapper.selectAllUsers();
+        List<UserWithIsBan> userWithIsBans = new ArrayList<>();
+        for(User user : users) {
+            UserWithIsBan userWithIsBan = new UserWithIsBan(user);
+            LocalDateTime banEndTime = userMapper.getLatestUnbanTimeByUserId(user.getId());
+            if(banEndTime != null && LocalDateTime.now().isBefore(banEndTime)) {
+                userWithIsBan.setIsBan(1);
+            }
+            userWithIsBans.add(userWithIsBan);
+        }
+        return Result.success("All users retrieved successfully", userWithIsBans);
     }
 }
