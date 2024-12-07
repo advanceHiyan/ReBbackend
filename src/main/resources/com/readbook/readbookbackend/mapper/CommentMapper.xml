@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2024, advanceHiyan.
+  ~  This work is licensed under the [License Name] license. For more information, please visit [License
+  ~   Link or Explanation URL].
+  ~   Unauthorized reproduction, distribution, display, performance, modification, adaptation, translation, creation of derivative works, or commercial use of this work in any form is prohibited without permission.
+  -->
+
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.readbook.readbookbackend.mapper.CommentMapper">
     <!-- 结果映射（这里插入操作不需要返回结果，但为了完整示例给出，可根据实际情况调整或删除） -->
