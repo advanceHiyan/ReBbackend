@@ -61,7 +61,8 @@ public class BookServiceImpl implements BookService {
         List<BookWithCate> retList= new ArrayList<>();
         for(OneBook oneBook : bookList) {
             List<Category> categories = bookMapper.findCategoriesByBookId(oneBook.getId());
-            BookWithCate bookWithCate = new BookWithCate(oneBook, categories);
+            int isBan = bookMapper.getBanBookById(oneBook.getId()) == null ? 0 : 1;
+            BookWithCate bookWithCate = new BookWithCate(oneBook, categories, isBan);
             retList.add(bookWithCate);
         }
         return retList;
@@ -131,7 +132,8 @@ public class BookServiceImpl implements BookService {
         bookMapper.updateBook(oneBook);
         OneBook returnBook = bookMapper.getBookById(bookid);
         List<Category> categories = bookMapper.findCategoriesByBookId(bookid);
-        BookWithCate bookWithCate = new BookWithCate(returnBook, categories);
+        int isBan = bookMapper.getBanBookById(bookid) == null ? 0 : 1;
+        BookWithCate bookWithCate = new BookWithCate(returnBook, categories, isBan);
         return Result.success("Book modified successfully", bookWithCate);
     }
 
@@ -145,7 +147,8 @@ public class BookServiceImpl implements BookService {
         }
         OneBook oneBook = bookMapper.getBookById(bookid);
         List<Category> categories = bookMapper.findCategoriesByBookId(bookid);
-        BookWithCate bookWithCate = new BookWithCate(oneBook, categories);
+        int isBan = bookMapper.getBanBookById(bookid) == null ? 0 : 1;
+        BookWithCate bookWithCate = new BookWithCate(oneBook, categories, isBan);
         return Result.success("Book read successfully", bookWithCate);
     }
 
@@ -156,7 +159,8 @@ public class BookServiceImpl implements BookService {
         for(OneBook oneBook : bookList) {
             System.out.println(oneBook.getId());
             List<Category> categories = bookMapper.findCategoriesByBookId(oneBook.getId());
-            BookWithCate bookWithCate = new BookWithCate(oneBook, categories);
+            int isBan = bookMapper.getBanBookById(oneBook.getId()) == null ? 0 : 1;
+            BookWithCate bookWithCate = new BookWithCate(oneBook, categories, isBan);
             bookWithCates.add(bookWithCate);
         }
         return Result.success("User marked books successfully", bookWithCates);
@@ -168,7 +172,8 @@ public class BookServiceImpl implements BookService {
         List<OneBook> bookList = bookMapper.getBookByAuthorId(userid);
         for(OneBook oneBook : bookList) {
             List<Category> categories = bookMapper.findCategoriesByBookId(oneBook.getId());
-            BookWithCate bookWithCate = new BookWithCate(oneBook, categories);
+            int isBan = bookMapper.getBanBookById(oneBook.getId()) == null ? 0 : 1;
+            BookWithCate bookWithCate = new BookWithCate(oneBook, categories, isBan);
             bookWithCates.add(bookWithCate);
         }
         return Result.success("User book list by author successfully", bookWithCates);
@@ -179,9 +184,9 @@ public class BookServiceImpl implements BookService {
         List<BookWithCate> bookWithCates = new ArrayList<>();
         List<OneBook> bookList = bookOwnerMapper.getOwnedBookByUser(userid);
         for(OneBook oneBook : bookList) {
-
             List<Category> categories = bookMapper.findCategoriesByBookId(oneBook.getId());
-            BookWithCate bookWithCate = new BookWithCate(oneBook, categories);
+            int isBan = bookMapper.getBanBookById(oneBook.getId()) == null ? 0 : 1;
+            BookWithCate bookWithCate = new BookWithCate(oneBook, categories,isBan);
             bookWithCates.add(bookWithCate);
         }
         return Result.success("User owned books successfully", bookWithCates);

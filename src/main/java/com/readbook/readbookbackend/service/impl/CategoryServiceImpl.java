@@ -5,6 +5,7 @@
 
 package com.readbook.readbookbackend.service.impl;
 
+import com.readbook.readbookbackend.mapper.BookMapper;
 import com.readbook.readbookbackend.mapper.CategoryMapper;
 import com.readbook.readbookbackend.pojo.BookCategoryRela;
 import com.readbook.readbookbackend.pojo.Category;
@@ -24,6 +25,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryMapper categoryMapper;
+    @Autowired
+    private BookMapper bookMapper;
 
     @Override
     public void addNewCategories(List<String> categories) {
@@ -53,7 +56,7 @@ public class CategoryServiceImpl implements CategoryService {
             bookCategoryRela.setCateId(categoryid);
             categoryMapper.insertBookCategoryRela(bookCategoryRela);
         }
-        BookWithCate bookWithCate = new BookWithCate(book, categoryList);
+        BookWithCate bookWithCate = new BookWithCate(book, categoryList,0);
         return Result.success("Add book success And add book-category success", bookWithCate);
     }
 

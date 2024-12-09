@@ -15,13 +15,13 @@ import java.util.List;
 @Mapper
 public interface BookOwnerMapper {
 
-    @Select("SELECT * FROM user_book_ownership_relationship WHERE book_id = #{bookid} " +
-            "AND user_id = #{userid}")
+    @Select("SELECT * FROM user_book_ownership_relationship WHERE book_id = #{bookId} " +
+            "AND user_id = #{userId}")
     @Result(property = "id", column = "user_book_ownership_relationship_id")
-    UserBookOwner getBookOwnerByBookIdAndUserId(BigInteger bookid, BigInteger userid);
+    UserBookOwner getBookOwnerByBookIdAndUserId(BigInteger bookId, BigInteger userId);
 
     @Insert("INSERT INTO user_book_ownership_relationship (book_id, user_id)"
-            + " VALUES (#{bookid}, #{userid})")
+            + " VALUES (#{bookId}, #{userId})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insertBookOwner(UserBookOwner userBookOwner);
 

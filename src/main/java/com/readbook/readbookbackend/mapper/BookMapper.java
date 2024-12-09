@@ -41,6 +41,8 @@ public interface BookMapper {
 
     void banBook(BanBook banBook);
 
+    BanBook getBanBookById(BigInteger bookId);
+
     void deleteBanBook(BigInteger bookId);
 
     List<OneBook> getBookByAuthorId(BigInteger authorId);

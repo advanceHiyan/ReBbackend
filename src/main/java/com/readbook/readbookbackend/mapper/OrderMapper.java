@@ -36,5 +36,5 @@ public interface OrderMapper {
 
     void updateUpdateTime(BigInteger orderId);
 
-    BanBook getBamBookByBookId(BigInteger bookId);
+    BanBook getBanBookByBookId(BigInteger bookId);
 }

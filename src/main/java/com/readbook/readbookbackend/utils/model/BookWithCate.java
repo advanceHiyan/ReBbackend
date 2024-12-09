@@ -24,6 +24,7 @@ public class BookWithCate {
     private String author;
 
     private List<Category> cate;
+    private Integer isBanned;
 
     private Integer heat;
     private String description;
@@ -33,7 +34,7 @@ public class BookWithCate {
     private BigInteger creatorId;
     private Integer value;
 
-    public BookWithCate(OneBook book, List<Category> cate) {
+    public BookWithCate(OneBook book, List<Category> cate,int isBan) {
         this.id = book.getId();
         this.title = book.getTitle();
         this.author = book.getAuthor();
@@ -45,5 +46,6 @@ public class BookWithCate {
         this.creatorId = book.getCreatorId();
         this.value = book.getValue();
         this.description = book.getDescription();
+        this.isBanned = isBan;
     }
 }
