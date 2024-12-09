@@ -95,7 +95,7 @@
         SELECT * FROM book WHERE creator_id = #{authorId}
     </select>
     <select id="getBanBookById" resultType="com.readbook.readbookbackend.pojo.BanBook">
-        SELECT * FROM ban_books WHERE book_id = #{bookId}
+        SELECT * FROM ban_books WHERE book_id = #{bookId} LIMIT 1
     </select>
 
     <resultMap id="categoryResultMap" type="com.readbook.readbookbackend.pojo.Category">

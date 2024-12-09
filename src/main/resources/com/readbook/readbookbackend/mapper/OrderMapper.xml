@@ -80,7 +80,7 @@
     </select>
 
     <select id="getBanBookByBookId" resultType="com.readbook.readbookbackend.pojo.BanBook">
-        SELECT * FROM ban_books WHERE book_id = #{bookId}
+        SELECT * FROM ban_books WHERE book_id = #{bookId} LIMIT 1
     </select>
 
 </mapper>
