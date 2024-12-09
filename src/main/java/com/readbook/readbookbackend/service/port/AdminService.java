@@ -16,4 +16,6 @@ public interface AdminService {
     Result banBook(BigInteger adminid, BigInteger bookid, String reason);
 
     Result endBanBook(BigInteger adminid, BigInteger bookid);
+
+    Result endBanUser(BigInteger adminid, BigInteger userid);
 }

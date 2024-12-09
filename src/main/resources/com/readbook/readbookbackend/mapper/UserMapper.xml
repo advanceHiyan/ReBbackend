@@ -81,6 +81,10 @@
         DELETE FROM user WHERE username = #{userName}
     </delete>
 
+    <delete id="deleteBanUser">
+        DELETE FROM ban_log WHERE user_id = #{userId}
+    </delete>
+
     <!-- 插入封禁用户记录的SQL语句 -->
     <insert id="banUser" keyProperty="id" useGeneratedKeys="true">
         INSERT INTO ban_log (

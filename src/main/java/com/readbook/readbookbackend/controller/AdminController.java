@@ -40,6 +40,11 @@ public class AdminController {
         return adminService.banUser(banLog);
     }
 
+    @DeleteMapping("/admin/endbanuser")
+    public Result adminEndBanUser(BigInteger adminid, BigInteger userid) {
+        return adminService.endBanUser(adminid, userid);
+    }
+
     @PostMapping("/admin/banbook")
     public Result adminBanBook(BigInteger adminid, BigInteger bookid, String reason) {
         return adminService.banBook(adminid, bookid, reason);

@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
         long seconds = duration.toSecondsPart();
         if(failuresOnLogin >= 5 && seconds < 600) {
             int needSeconds = 600 - (int) seconds;
-            return Result.error("too many failures, try again in #{needSeconds} minutes", "224");
+            return Result.error("too many failures, try again in"+ needSeconds +" minutes", "224");
         }
         if(userMapper.checkLoginCredentials(username, password) == null) {
             userMapper.updateLoginFailureInfo(username, LocalDateTime.now(),

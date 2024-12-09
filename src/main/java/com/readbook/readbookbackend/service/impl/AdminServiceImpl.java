@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -59,5 +60,19 @@ public class AdminServiceImpl implements AdminService {
         }
         bookMapper.deleteBanBook(bookid);
         return Result.success("End ban book success",bookid+" book successfully end banned");
+    }
+
+    @Override
+    public Result endBanUser(BigInteger adminid, BigInteger userid) {
+        User user = userMapper.getUserById(adminid);
+        if(user.getUserRole() != 1) {
+            return Result.error("You are not an admin","010");
+        }
+        LocalDateTime banEndTime = userMapper.getLatestUnbanTimeByUserId(userid);
+        if(banEndTime == null || !LocalDateTime.now().isBefore(banEndTime)) {
+            return Result.success("User are not banned or already end banned do not need to end ban");
+        }
+        userMapper.deleteBanUser(userid);
+        return Result.success("End ban user success",userid+" user successfully end banned");
     }
 }

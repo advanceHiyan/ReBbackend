@@ -54,4 +54,6 @@ public interface UserMapper {
     void banUser(BanLog banLog);
 
     LocalDateTime getLatestUnbanTimeByUserId(BigInteger userId);
+
+    void deleteBanUser(BigInteger userId);
 }
