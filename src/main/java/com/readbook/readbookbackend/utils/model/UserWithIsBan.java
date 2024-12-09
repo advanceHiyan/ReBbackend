@@ -21,6 +21,7 @@ public class UserWithIsBan {
     private String userName;
     private Integer isBan;
     private String email;
+    private LocalDateTime endBanTime;
 
     public UserWithIsBan(User user) {
         this.id = user.getId();

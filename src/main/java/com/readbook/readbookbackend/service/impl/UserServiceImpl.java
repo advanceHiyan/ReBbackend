@@ -118,6 +118,7 @@ public class UserServiceImpl implements UserService {
             LocalDateTime banEndTime = userMapper.getLatestUnbanTimeByUserId(user.getId());
             if(banEndTime != null && LocalDateTime.now().isBefore(banEndTime)) {
                 userWithIsBan.setIsBan(1);
+                userWithIsBan.setEndBanTime(banEndTime);
             }
             userWithIsBans.add(userWithIsBan);
         }
